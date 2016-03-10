@@ -1,0 +1,54 @@
+package hsenid;
+
+import com.mongodb.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.UnknownHostException;
+
+
+public class MongoHandle extends HttpServlet{
+
+    public void doGet(HttpServletRequest request,
+                      HttpServletResponse response) throws IOException, ServletException {
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter(); // To write HTML contents
+        String username = request.getParameter("username"); //Gets the username and password from jsp post method to these variables
+        String password = request.getParameter("password");
+
+        try {
+
+            MongoClient mongo = new MongoClient("localhost", 27017);
+            DB db = mongo.getDB("hsenid");
+            DBCollection table = db.getCollection("users");
+            BasicDBObject searchQuery = new BasicDBObject();
+
+//            out.println(username);
+//            out.println(password);
+
+            searchQuery.put("username", username);
+            searchQuery.put("password", password);
+
+            DBCursor cursor =table.find(searchQuery);
+//            out.println(cursor.size());
+
+            if (cursor.hasNext()){
+                out.println("Success!");
+            }
+
+
+
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (MongoException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+}
