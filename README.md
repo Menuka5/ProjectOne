@@ -18,6 +18,8 @@ This project created using below sdk's and built tools.
 1. **java version "1.8.0_74"**
 2. **Java(TM) SE Runtime Environment (build 1.8.0_74-b02)**
 3. **Apache Maven 3.3.9**
+4. **mongo-java-driver 2.10.1**
+5. **servlet-api 2.5**
 
 and deployed and tested on
 
@@ -35,7 +37,7 @@ then run maven to bulid the .war file.
 
 `mvn clean install`
 
-you can see you war file in created target folder. 
+you can see you .war file in created target folder. 
 
 ___
 
